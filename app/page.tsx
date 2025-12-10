@@ -28,7 +28,7 @@ export default function Home() {
             Welcome to my personal website! This is a showcase of my work and a place where I build small apps and experiments.
           </p>
           <p>
-            I'm a software engineer passionate about building great products and exploring new technologies.
+            I&apos;m a software engineer passionate about building great products and exploring new technologies.
             This site is built with Next.js and serves as both my portfolio and a playground for creating useful tools and applications.
           </p>
           <p>
