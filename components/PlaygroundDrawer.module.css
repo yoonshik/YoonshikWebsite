@@ -1,0 +1,232 @@
+/* Toggle Button */
+.toggleButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(24, 188, 156, 0.3);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.toggleButton:hover {
+  background: #15a085;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(24, 188, 156, 0.4);
+}
+
+.toggleButton:active {
+  transform: translateY(0);
+}
+
+.toggleIcon {
+  font-size: 1.25rem;
+}
+
+.toggleText {
+  font-size: 0.9rem;
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Drawer */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-background);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-secondary);
+  color: #ffffff;
+}
+
+.drawerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.drawerContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.drawerDescription {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.appList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.appLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.appLink:hover {
+  border-color: var(--color-primary);
+  background: rgba(24, 188, 156, 0.05);
+  transform: translateX(4px);
+}
+
+.appLinkActive {
+  border-color: var(--color-primary);
+  background: rgba(24, 188, 156, 0.1);
+}
+
+.appInfo {
+  flex: 1;
+}
+
+.appTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: var(--color-text);
+}
+
+.appDescription {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.activeIndicator {
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .toggleButton {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.625rem 1rem;
+  }
+
+  .toggleText {
+    display: none;
+  }
+
+  .drawer {
+    max-width: 100%;
+  }
+
+  .drawerHeader {
+    padding: 1.25rem;
+  }
+
+  .drawerContent {
+    padding: 1.25rem;
+  }
+}
+
+/* Scrollbar Styling */
+.drawerContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drawerContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawerContent::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.drawerContent::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}

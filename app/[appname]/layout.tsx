@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import PlaygroundDrawer from '@/components/PlaygroundDrawer';
 
 export const metadata: Metadata = {
   title: 'App | Yoonshik Hong',
@@ -10,5 +11,10 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      {children}
+      <PlaygroundDrawer />
+    </>
+  );
 }

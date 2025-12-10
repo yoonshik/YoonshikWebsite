@@ -35,6 +35,11 @@ export default function Navigation() {
               Calculator
             </Link>
           </li>
+          <li>
+            <Link href="/montyhall" className={styles.link} onClick={() => setIsOpen(false)}>
+              Monty Hall Problem
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

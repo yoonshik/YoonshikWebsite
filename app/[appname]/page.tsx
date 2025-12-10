@@ -1,24 +1,5 @@
 import { notFound } from 'next/navigation';
-import Calculator from './apps/Calculator';
-
-// Define the type for our app registry
-type AppComponent = () => JSX.Element;
-
-interface AppInfo {
-  component: AppComponent;
-  title: string;
-  description: string;
-}
-
-// Registry of available apps
-const apps: Record<string, AppInfo> = {
-  calculator: {
-    component: Calculator,
-    title: 'Calculator',
-    description: 'A simple calculator app',
-  },
-  // Add more apps here in the future
-};
+import { apps, type AppInfo } from './appsRegistry';
 
 interface PageProps {
   params: Promise<{
