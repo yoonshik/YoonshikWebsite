@@ -23,13 +23,21 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  min-height: 100vh;
+}
+
+html {
+  background: var(--color-secondary);
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--color-text);
-  background: var(--color-background);
+  background: var(--color-secondary);
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a {

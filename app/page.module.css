@@ -1,13 +1,19 @@
 .main {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  background: transparent;
 }
 
 .hero {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: #ffffff;
-  padding: 6rem 2rem;
-  padding-top: calc(80px + 6rem);
+  padding: clamp(1.5rem, 3vh, 2.5rem) clamp(1.5rem, 4vw, 2rem);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .heroContent {
@@ -16,21 +22,21 @@
 }
 
 .profileImage {
-  width: 200px;
-  height: 200px;
+  width: clamp(120px, 15vw, 200px);
+  height: clamp(120px, 15vw, 200px);
   border-radius: 50%;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
   border: 5px solid #ffffff;
   object-fit: cover;
 }
 
 .heroTitle {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
 }
 
 .heroSubtitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   opacity: 0.9;
 }
 
@@ -60,15 +66,21 @@
 }
 
 .section {
-  max-width: var(--max-width);
+  width: 100%;
+  background: #e8eaed;
+  flex-shrink: 0;
+}
+
+.sectionContent {
+  max-width: min(var(--max-width), 95vw);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: clamp(2rem, 4vh, 3rem) clamp(1.5rem, 4vw, 2rem);
 }
 
 .sectionTitle {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
   color: var(--color-secondary);
 }
 
@@ -76,16 +88,17 @@
   width: 100px;
   height: 3px;
   background: var(--color-secondary);
-  margin: 1.5rem auto 3rem;
+  margin: clamp(0.5rem, 1vh, 0.75rem) auto clamp(0.75rem, 1.5vh, 1rem);
 }
 
 .content {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  max-width: 100%;
 }
 
 .content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(0.75rem, 1.5vh, 1rem);
   text-align: justify;
 }
 
@@ -98,20 +111,20 @@
 }
 
 @media (max-width: 768px) {
-  .heroTitle {
-    font-size: 2rem;
+  .main {
+    margin-top: 60px;
   }
 
-  .heroSubtitle {
-    font-size: 1.2rem;
+  .hero {
+    padding: clamp(1.25rem, 3vh, 2rem) 1.5rem;
   }
 
-  .profileImage {
-    width: 150px;
-    height: 150px;
+  .sectionContent {
+    padding: clamp(1rem, 2.5vh, 1.5rem) 1.5rem;
+    max-width: 95vw;
   }
 
-  .section {
-    padding: 3rem 1.5rem;
+  .content p {
+    text-align: left;
   }
 }
