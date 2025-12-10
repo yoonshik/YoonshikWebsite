@@ -88,6 +88,7 @@ export default function Calculator() {
         </div>
         
         <div className={styles.buttons}>
+          {/* Row 1 */}
           <button
             className={`${styles.button} ${styles.buttonClear}`}
             onClick={clear}
@@ -113,6 +114,7 @@ export default function Calculator() {
             -
           </button>
 
+          {/* Row 2 */}
           <button className={styles.button} onClick={() => inputDigit('7')}>7</button>
           <button className={styles.button} onClick={() => inputDigit('8')}>8</button>
           <button className={styles.button} onClick={() => inputDigit('9')}>9</button>
@@ -123,9 +125,16 @@ export default function Calculator() {
             +
           </button>
 
+          {/* Row 3 */}
           <button className={styles.button} onClick={() => inputDigit('4')}>4</button>
           <button className={styles.button} onClick={() => inputDigit('5')}>5</button>
           <button className={styles.button} onClick={() => inputDigit('6')}>6</button>
+          <button className={styles.button} onClick={inputDecimal}>.</button>
+
+          {/* Row 4 */}
+          <button className={styles.button} onClick={() => inputDigit('1')}>1</button>
+          <button className={styles.button} onClick={() => inputDigit('2')}>2</button>
+          <button className={styles.button} onClick={() => inputDigit('3')}>3</button>
           <button
             className={`${styles.button} ${styles.buttonEquals}`}
             onClick={handleEquals}
@@ -133,17 +142,13 @@ export default function Calculator() {
             =
           </button>
 
-          <button className={styles.button} onClick={() => inputDigit('1')}>1</button>
-          <button className={styles.button} onClick={() => inputDigit('2')}>2</button>
-          <button className={styles.button} onClick={() => inputDigit('3')}>3</button>
-
+          {/* Row 5 */}
           <button
             className={`${styles.button} ${styles.buttonZero}`}
             onClick={() => inputDigit('0')}
           >
             0
           </button>
-          <button className={styles.button} onClick={inputDecimal}>.</button>
         </div>
       </div>
     </div>

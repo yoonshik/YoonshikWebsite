@@ -99,7 +99,6 @@
 .buttonEquals {
   background: var(--color-secondary);
   color: #ffffff;
-  grid-column: span 2;
 }
 
 .buttonEquals:hover {
@@ -116,7 +115,7 @@
 }
 
 .buttonZero {
-  grid-column: span 2;
+  grid-column: span 4;
 }
 
 @media (max-width: 480px) {

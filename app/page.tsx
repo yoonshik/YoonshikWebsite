@@ -15,7 +15,6 @@ export default function Home() {
             priority
           />
           <h1 className={styles.heroTitle}>Yoonshik Hong</h1>
-          <div className={styles.divider}></div>
           <p className={styles.heroSubtitle}>Software Engineer</p>
         </div>
       </section>
