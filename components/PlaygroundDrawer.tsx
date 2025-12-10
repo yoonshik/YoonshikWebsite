@@ -1,17 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { appsMetadata } from '@/app/[appname]/appsMetadata';
+import { usePlaygroundDrawer } from './PlaygroundDrawerContext';
 import styles from './PlaygroundDrawer.module.css';
 
 export default function PlaygroundDrawer() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, closeDrawer, toggleDrawer } = usePlaygroundDrawer();
   const pathname = usePathname();
-
-  const toggleDrawer = () => setIsOpen(!isOpen);
-  const closeDrawer = () => setIsOpen(false);
 
   // Close drawer when route changes
   useEffect(() => {
@@ -32,17 +30,6 @@ export default function PlaygroundDrawer() {
 
   return (
     <>
-      {/* Toggle Button */}
-      <button
-        className={styles.toggleButton}
-        onClick={toggleDrawer}
-        aria-label="Toggle playground drawer"
-        aria-expanded={isOpen}
-      >
-        <span className={styles.toggleIcon}>⚡</span>
-        <span className={styles.toggleText}>Playground</span>
-      </button>
-
       {/* Backdrop */}
       {isOpen && (
         <div

@@ -1,12 +1,12 @@
 .main {
   min-height: 100vh;
-  padding-top: 80px;
 }
 
 .hero {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: #ffffff;
   padding: 6rem 2rem;
+  padding-top: calc(80px + 6rem);
   text-align: center;
 }
 

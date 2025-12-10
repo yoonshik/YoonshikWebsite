@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PlaygroundDrawer from '@/components/PlaygroundDrawer';
+import { PlaygroundDrawerProvider } from '@/components/PlaygroundDrawerContext';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -16,9 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navigation />
-        {children}
-        <Footer />
+        <PlaygroundDrawerProvider>
+          <Navigation />
+          {children}
+          <Footer />
+          <PlaygroundDrawer />
+        </PlaygroundDrawerProvider>
       </body>
     </html>
   );
