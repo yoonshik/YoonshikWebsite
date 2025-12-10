@@ -1,0 +1,139 @@
+.container {
+  min-height: calc(100vh - 200px);
+  padding: 6rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 600px;
+}
+
+.calculator {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.display {
+  background: var(--color-secondary);
+  color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: right;
+  font-size: 2rem;
+  font-family: var(--font-mono);
+  margin-bottom: 1.5rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.expression {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  min-height: 1.2rem;
+}
+
+.result {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.button {
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #ecf0f1;
+  color: var(--color-secondary);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.buttonOperator {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.buttonOperator:hover {
+  background: #15a085;
+}
+
+.buttonEquals {
+  background: var(--color-secondary);
+  color: #ffffff;
+  grid-column: span 2;
+}
+
+.buttonEquals:hover {
+  background: #1a252f;
+}
+
+.buttonClear {
+  background: #e74c3c;
+  color: #ffffff;
+}
+
+.buttonClear:hover {
+  background: #c0392b;
+}
+
+.buttonZero {
+  grid-column: span 2;
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    padding: 1.5rem;
+  }
+
+  .button {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .display {
+    padding: 1rem;
+  }
+
+  .result {
+    font-size: 1.5rem;
+  }
+}

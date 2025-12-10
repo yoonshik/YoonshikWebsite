@@ -1,0 +1,117 @@
+.main {
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: #ffffff;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  border: 5px solid #ffffff;
+  object-fit: cover;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.divider {
+  width: 100px;
+  height: 3px;
+  background: #ffffff;
+  margin: 1.5rem auto;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '★';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+.divider::before {
+  left: -40px;
+}
+
+.divider::after {
+  right: -40px;
+}
+
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--color-secondary);
+}
+
+.sectionDivider {
+  width: 100px;
+  height: 3px;
+  background: var(--color-secondary);
+  margin: 1.5rem auto 3rem;
+}
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.content p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.content ul {
+  margin: 1rem 0 1.5rem 2rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+
+  .profileImage {
+    width: 150px;
+    height: 150px;
+  }
+
+  .section {
+    padding: 3rem 1.5rem;
+  }
+}
