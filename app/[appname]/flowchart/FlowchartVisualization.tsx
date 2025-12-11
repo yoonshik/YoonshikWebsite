@@ -25,7 +25,7 @@ interface ViewBox {
 }
 
 const QUESTION_WRAP_WIDTH = 240;
-const RELIGION_WRAP_WIDTH = 100;
+const RELIGION_WRAP_WIDTH = 110;
 
 function measureNodeWidth(text: string, isQuestion: boolean) {
   const maxWidth = isQuestion ? QUESTION_WRAP_WIDTH : RELIGION_WRAP_WIDTH;
@@ -46,8 +46,8 @@ function measureNodeWidth(text: string, isQuestion: boolean) {
 
   const longestLineLength = lines.reduce((max, line) => Math.max(max, line.length), 0);
   return isQuestion
-    ? Math.max(280, longestLineLength * 14 + 50)
-    : Math.max(120, longestLineLength * 14 + 40);
+    ? Math.max(220, longestLineLength * 12 + 36)
+    : Math.max(110, longestLineLength * 12 + 30);
 }
 
 function EdgeLine({
@@ -136,8 +136,19 @@ export default function FlowchartVisualization() {
   const { nodes, edges, viewBox } = useMemo(() => {
     const edgesList: Edge[] = [];
     const childrenMap = new Map<string, string[]>();
+    const parentsMap = new Map<string, string[]>();
     const allNodeIds = new Set<string>();
     const nodeWidths = new Map<string, number>();
+    const priority = new Map<string, number>([
+      ['none_spirituality', -2],
+      ['one_separate', 0],
+      ['many_reincarnation', 3],
+      ['one_interact', -1],
+      ['one_idols', 1],
+      ['Hindu', 8],
+      ['Pagan', 6],
+      ['Sikh', 4],
+    ]);
 
     // Collect nodes and edges from the question data
     Object.values(questions).forEach((q) => {
@@ -151,6 +162,7 @@ export default function FlowchartVisualization() {
           label: answer.value,
         });
         childrenMap.set(q.id, [...(childrenMap.get(q.id) ?? []), answer.next]);
+        parentsMap.set(answer.next, [...(parentsMap.get(answer.next) ?? []), q.id]);
         if (!nodeWidths.has(answer.next)) {
           nodeWidths.set(
             answer.next,
@@ -219,11 +231,10 @@ export default function FlowchartVisualization() {
       );
     });
 
-    const horizontalGap = 340;
     const verticalGap = 360;
-    const paddingX = 220;
-    const paddingY = 220;
-    const siblingGutter = 120;
+    const paddingX = 160;
+    const paddingY = 160;
+    const siblingGutter = 160;
 
     // Initial x assignment: give leaves sequential slots
     const xPositions = new Map<string, number>();
@@ -235,8 +246,8 @@ export default function FlowchartVisualization() {
     leaves.forEach((id, idx) => {
       const width = nodeWidths.get(id) ?? 200;
       if (idx === 0) {
-        xPositions.set(id, 0);
-        cursor = width / 2;
+        xPositions.set(id, width / 2);
+        cursor = width;
       } else {
         const prevId = leaves[idx - 1];
         const prevWidth = nodeWidths.get(prevId) ?? 200;
@@ -259,7 +270,7 @@ export default function FlowchartVisualization() {
       const children = childrenMap.get(id) ?? [];
       if (children.length === 0) {
         if (!xPositions.has(id)) {
-          xPositions.set(id, xPositions.size * horizontalGap);
+          xPositions.set(id, xPositions.size * (200 + siblingGutter));
         }
         return;
       }
@@ -270,7 +281,7 @@ export default function FlowchartVisualization() {
 
       if (childXs.length === 0) {
         if (!xPositions.has(id)) {
-          xPositions.set(id, xPositions.size * horizontalGap);
+          xPositions.set(id, xPositions.size * (200 + siblingGutter));
         }
         return;
       }
@@ -281,32 +292,72 @@ export default function FlowchartVisualization() {
       xPositions.set(id, nextX);
     });
 
-    // Spread siblings within each level to maintain minimum spacing that accounts for widths
-    nodesByLevel.forEach((levelNodes) => {
-      levelNodes.sort(
-        (a, b) => (xPositions.get(a) ?? 0) - (xPositions.get(b) ?? 0)
-      );
-      let prevX = -Infinity;
-      let prevWidth = 0;
-      levelNodes.forEach((id, idx) => {
-        const current = xPositions.get(id) ?? 0;
-        const width = nodeWidths.get(id) ?? 200;
-        if (idx > 0) {
-          const required = prevX + prevWidth / 2 + siblingGutter + width / 2;
-          if (current < required) {
-            xPositions.set(id, required);
-            prevX = required;
-            prevWidth = width;
-          } else {
-            prevX = current;
-            prevWidth = width;
-          }
-        } else {
-          prevX = current;
-          prevWidth = width;
-        }
+    const placeLevel = (levelNodes: string[], getTarget: (id: string) => number) => {
+      levelNodes.sort((a, b) => {
+        const ta = getTarget(a) + (priority.get(a) ?? 0) * 160;
+        const tb = getTarget(b) + (priority.get(b) ?? 0) * 160;
+        if (ta !== tb) return ta - tb;
+        const pa = priority.get(a) ?? 0;
+        const pb = priority.get(b) ?? 0;
+        if (pa !== pb) return pa - pb;
+        return (orderIndex.get(a) ?? 0) - (orderIndex.get(b) ?? 0);
       });
-    });
+      let lastCenter: number | undefined;
+      let lastWidth = 0;
+      levelNodes.forEach((id) => {
+        const width = nodeWidths.get(id) ?? 200;
+        const target = getTarget(id) + (priority.get(id) ?? 0) * 160;
+        if (lastCenter === undefined) {
+          xPositions.set(id, target);
+          lastCenter = target;
+          lastWidth = width;
+          return;
+        }
+        const required = lastCenter + lastWidth / 2 + siblingGutter + width / 2;
+        const center = Math.max(target, required);
+        xPositions.set(id, center);
+        lastCenter = center;
+        lastWidth = width;
+      });
+    };
+
+    // Top-down sweep using parents to reduce crossings
+    for (let level = 1; level < nodesByLevel.length; level++) {
+      const levelNodes = nodesByLevel[level];
+      const getTarget = (id: string) => {
+        const parents = parentsMap.get(id) ?? [];
+        const vals = parents
+          .map((p) => xPositions.get(p))
+          .filter((v): v is number => v !== undefined);
+        if (vals.length === 0) return xPositions.get(id) ?? 0;
+        return vals.reduce((sum, v) => sum + v, 0) / vals.length;
+      };
+      placeLevel(levelNodes, getTarget);
+    }
+
+    // Bottom-up sweep using children to further reduce crossings
+    for (let level = nodesByLevel.length - 2; level >= 0; level--) {
+      const levelNodes = nodesByLevel[level];
+      const getTarget = (id: string) => {
+        const children = childrenMap.get(id) ?? [];
+        const vals = children
+          .map((c) => xPositions.get(c))
+          .filter((v): v is number => v !== undefined);
+        if (vals.length === 0) return xPositions.get(id) ?? 0;
+        return vals.reduce((sum, v) => sum + v, 0) / vals.length;
+      };
+      placeLevel(levelNodes, getTarget);
+    }
+
+    // Manual nudges to stabilize right-side ordering
+    const paganX = xPositions.get('Pagan');
+    if (paganX !== undefined) {
+      xPositions.set('Pagan', paganX + 260);
+    }
+    const hinduX = xPositions.get('Hindu');
+    if (hinduX !== undefined) {
+      xPositions.set('Hindu', hinduX + 520);
+    }
 
     const minX = Math.min(
       ...Array.from(xPositions.entries()).map(([id, x]) => x - (nodeWidths.get(id) ?? 200) / 2)
@@ -394,7 +445,7 @@ export default function FlowchartVisualization() {
           {nodes.map((node) => {
             // Calculate text wrapping for long text - adjusted based on node type
             const isReligion = node.type === 'religion';
-            const maxWidth = isReligion ? 100 : 240; // Increased for question nodes to reduce wrapping
+            const maxWidth = isReligion ? 110 : 240;
             const words = node.text.split(' ');
             const lines: string[] = [];
             let currentLine = '';
@@ -410,18 +461,18 @@ export default function FlowchartVisualization() {
             });
             if (currentLine) lines.push(currentLine);
 
-            const lineHeight = 26;
+            const lineHeight = 24;
             const totalHeight = lines.length * lineHeight;
-            const startY = node.y - (totalHeight / 2) + lineHeight;
+            const startY = node.y - totalHeight / 2 + lineHeight / 2;
 
             // Special handling for Pagan node to show it can be reached from two paths
             const isPagan = node.id === 'Pagan';
             // Religion nodes should be sized to fit text properly, questions sized based on content
             const longestLineLength = lines.reduce((max, line) => Math.max(max, line.length), 0);
             const nodeWidth = isReligion 
-              ? Math.max(100, longestLineLength * 14 + 40) // Proper width for text at fontSize 24 with padding
-              : Math.max(280, longestLineLength * 14 + 50); // Dynamic width for questions based on text
-            const nodeHeight = Math.max(isReligion ? 50 : 70, totalHeight + (isReligion ? 20 : 20));
+              ? Math.max(120, longestLineLength * 13 + 28)
+              : Math.max(240, longestLineLength * 13 + 36);
+            const nodeHeight = Math.max(isReligion ? 46 : 60, totalHeight + (isReligion ? 10 : 12));
 
             return (
               <g key={node.id}>
