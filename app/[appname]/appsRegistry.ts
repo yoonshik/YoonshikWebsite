@@ -1,5 +1,6 @@
 import Calculator from './apps/Calculator';
 import MontyHall from './apps/MontyHall';
+import Flowchart from './apps/Flowchart';
 
 // Define the type for our app registry
 type AppComponent = () => JSX.Element;
@@ -22,6 +23,11 @@ export const apps: Record<string, AppInfo> = {
     component: MontyHall,
     title: 'Monty Hall Problem',
     description: 'Interactive simulator demonstrating why you should always switch doors',
+  },
+  whichreligion: {
+    component: Flowchart,
+    title: 'Which religion are you?',
+    description: 'Find your religion through a series of questions',
   },
   // Add more apps here in the future
 };

@@ -20,5 +20,11 @@ export const appsMetadata: AppInfoClient[] = [
     description: 'Interactive simulator demonstrating why you should always switch doors',
     path: '/montyhall',
   },
+  {
+    name: 'whichreligion',
+    title: 'Which religion are you?',
+    description: 'Find your religion through a series of questions',
+    path: '/whichreligion',
+  },
   // Add more apps here in the future
 ];

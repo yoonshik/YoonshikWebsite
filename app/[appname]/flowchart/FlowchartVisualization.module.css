@@ -1,0 +1,203 @@
+/* Container must have a background color to override the dark body background */
+.container {
+  min-height: calc(100vh - 200px);
+  padding: 6rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-app-background);
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 700px;
+}
+
+.tryQuizButton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-primary);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.tryQuizButton:hover {
+  background: #15a085;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.legend {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.legendBox {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 2px solid;
+}
+
+.legendQuestion {
+  background: #e3f2fd;
+  border-color: var(--color-primary);
+}
+
+.legendReligion {
+  background: #fff9c4;
+  border-color: #f9a825;
+}
+
+.flowchartContainer {
+  background: #f7f9fb;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: auto;
+  position: relative;
+  border: 1px solid #e4e8ee;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  min-height: 1100px;
+  display: block;
+}
+
+.questionNode {
+  fill: #e3f2fd;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.religionNode {
+  fill: #fff9c4;
+  stroke: #f9a825;
+  stroke-width: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.nodeText {
+  fill: var(--color-secondary);
+  font-weight: 600;
+  pointer-events: none;
+  dominant-baseline: middle;
+}
+
+.paganNote {
+  fill: #666;
+  font-style: italic;
+  pointer-events: none;
+}
+
+.edgeLabel {
+  fill: #555;
+  font-weight: 600;
+  pointer-events: none;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tryQuizButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .flowchartContainer {
+    padding: 1rem;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  .svg {
+    min-height: 800px;
+    min-width: 1000px;
+  }
+
+  .nodeText {
+    font-size: 20px;
+  }
+
+  .edgeLabel {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .tryQuizButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .legend {
+    padding: 0.5rem;
+  }
+
+  .legendItem {
+    font-size: 0.8rem;
+  }
+
+  .nodeText {
+    font-size: 18px;
+  }
+
+  .edgeLabel {
+    font-size: 18px;
+  }
+}
